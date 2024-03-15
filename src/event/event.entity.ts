@@ -1,6 +1,6 @@
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { BaseEntity } from './base.entity';
-import { User } from './user.entity';
+import { BaseEntity } from '../base/base.entity';
+import { User } from '../user/user.entity';
 
 @Entity('events')
 export class Event extends BaseEntity {

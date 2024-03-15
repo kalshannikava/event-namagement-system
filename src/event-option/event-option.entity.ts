@@ -1,7 +1,7 @@
 import { Entity, ManyToOne, JoinColumn } from 'typeorm';
-import { BaseEntity } from './base.entity';
-import { Tag } from './tag.entity';
-import { Event } from './event.entity';
+import { BaseEntity } from '../base/base.entity';
+import { Tag } from '../tag/tag.entity';
+import { Event } from '../event/event.entity';
 
 @Entity('event_options')
 export class EventOptions extends BaseEntity {
