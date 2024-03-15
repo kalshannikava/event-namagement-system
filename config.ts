@@ -1,21 +1,16 @@
-import dotenv from 'dotenv';
+import { ConfigService } from '@nestjs/config';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
-dotenv.config();
-
-const pathToEntities = __dirname + '/src/entities/*.entity.js';
-console.log(pathToEntities);
-const config = {
+const config = (configService: ConfigService): TypeOrmModuleOptions => ({
   type: 'postgres',
-  host: process.env.DB_HOST || '',
-  port: process.env.DB_PORT || 5432,
-  username: process.env.DB_USER || '',
-  password: process.env.DB_PASS || '',
-  database: process.env.DB_NAME || '',
+  host: configService.get('DB_HOST'),
+  port: +configService.get('DB_PORT'),
+  username: configService.get('DB_USER'),
+  password: configService.get('DB_PASS'),
+  database: configService.get('DB_NAME'),
+  entities: [__dirname + '/src/entities/*.entity.js'],
   synchronize: true,
   logging: true,
-  entities: [__dirname + '/src/entities/*.entity.js'],
-  migrations: [],
-  subscribers: [],
-};
+});
 
 export default config;
