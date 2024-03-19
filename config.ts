@@ -8,7 +8,7 @@ const config = (configService: ConfigService): TypeOrmModuleOptions => ({
   username: configService.get('DB_USER'),
   password: configService.get('DB_PASS'),
   database: configService.get('DB_NAME'),
-  entities: [__dirname + '/src/entities/*.entity.js'],
+  entities: [__dirname + '/src/**/**/*.entity.js'],
   synchronize: true,
   logging: true,
 });
