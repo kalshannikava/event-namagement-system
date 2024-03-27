@@ -5,11 +5,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import config from 'config';
 import { UsersModule } from './users/users.module';
+import { validate } from '../env.validation';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
+      imports: [ConfigModule.forRoot({ validate })],
       useFactory: config,
       inject: [ConfigService],
     }),
