@@ -12,7 +12,7 @@ import { UpdateEventDto } from './dto/update-event.dto';
 import { BaseController } from 'src/base/base.controller';
 import { Event } from './entities/event.entity';
 
-@Controller('event')
+@Controller('events')
 export class EventsController extends BaseController<Event> {
   constructor(private readonly eventsService: EventsService) {
     super(eventsService);
