@@ -9,7 +9,7 @@ import {
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
-import { BaseController } from 'src/base/base.controller';
+import { BaseController } from '../base/base.controller';
 import { Event } from './entities/event.entity';
 
 @Controller('events')
