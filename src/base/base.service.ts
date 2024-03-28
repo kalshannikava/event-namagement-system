@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import {
   DeepPartial,
   FindOptionsWhere,
@@ -19,8 +19,12 @@ export abstract class BaseService<T extends ObjectLiteral> {
     return this.repository.find();
   }
 
-  findOne(id: number): Promise<T | null> {
+  async findOne(id: number): Promise<T | null> {
     const options = { id } as unknown as FindOptionsWhere<T>;
+    const result = await this.repository.findOneBy(options);
+    if (!result) {
+      throw new HttpException('Item not found', HttpStatus.NOT_FOUND);
+    }
     return this.repository.findOneBy(options);
   }
 
