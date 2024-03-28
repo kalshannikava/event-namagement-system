@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import config from 'config';
 import { UsersModule } from './users/users.module';
 import { validate } from '../env.validation';
+import { EventModule } from './event/events.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { validate } from '../env.validation';
       inject: [ConfigService],
     }),
     UsersModule,
+    EventModule,
   ],
   controllers: [],
   providers: [],
