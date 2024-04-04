@@ -9,7 +9,7 @@ import {
 import { FeedbacksService } from './feedbacks.service';
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
 import { UpdateFeedbackDto } from './dto/update-feedback.dto';
-import { BaseController } from 'src/base/base.controller';
+import { BaseController } from '../base/base.controller';
 import { Feedback } from './entities/feedback.entity';
 
 @Controller('feedbacks')
