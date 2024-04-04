@@ -9,7 +9,7 @@ import {
 import { TagsService } from './tags.service';
 import { CreateTagDto } from './dto/create-tag.dto';
 import { UpdateTagDto } from './dto/update-tag.dto';
-import { BaseController } from 'src/base/base.controller';
+import { BaseController } from '../base/base.controller';
 import { Tag } from './entities/tag.entity';
 
 @Controller('tags')
