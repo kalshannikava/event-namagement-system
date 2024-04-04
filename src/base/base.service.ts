@@ -16,16 +16,23 @@ export abstract class BaseService<T extends ObjectLiteral> {
   }
 
   findAll(): Promise<T[]> {
-    return this.repository.find();
+    return this.repository.find({
+      loadRelationIds: true,
+    });
   }
 
   async findOne(id: number): Promise<T | null> {
-    const options = { id } as unknown as FindOptionsWhere<T>;
-    const result = await this.repository.findOneBy(options);
+    const options = {
+      where: {
+        id,
+      },
+      loadRelationIds: true,
+    } as unknown as FindOptionsWhere<T>;
+    const result = await this.repository.findOne(options);
     if (!result) {
       throw new HttpException('Item not found', HttpStatus.NOT_FOUND);
     }
-    return this.repository.findOneBy(options);
+    return result;
   }
 
   async update(

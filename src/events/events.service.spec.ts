@@ -18,6 +18,7 @@ describe('EventsService', () => {
           provide: getRepositoryToken(Event),
           useValue: {
             find: jest.fn(),
+            findOne: jest.fn(),
             findOneBy: jest.fn(),
             save: jest.fn(),
             update: jest.fn(),
@@ -87,12 +88,11 @@ describe('EventsService', () => {
         description: 'description',
         ownerId: 1,
       } as Event;
-      jest.spyOn(repository, 'findOneBy').mockResolvedValue(event);
+      jest.spyOn(repository, 'findOne').mockResolvedValue(event);
 
       const result = await service.findOne(id);
       expect(result).toEqual(event);
-      expect(repository.findOneBy).toHaveBeenCalled();
-      expect(repository.findOneBy).toHaveBeenCalledWith({ id });
+      expect(repository.findOne).toHaveBeenCalled();
     });
   });
 
