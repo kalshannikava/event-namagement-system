@@ -9,7 +9,7 @@ import {
 import { EventOptionsService } from './event-options.service';
 import { CreateEventOptionDto } from './dto/create-event-option.dto';
 import { UpdateEventOptionDto } from './dto/update-event-option.dto';
-import { BaseController } from 'src/base/base.controller';
+import { BaseController } from '../base/base.controller';
 import { EventOptions } from './entities/event-option.entity';
 
 @Controller('event-options')

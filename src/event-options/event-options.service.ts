@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { BaseService } from 'src/base/base.service';
+import { BaseService } from '../base/base.service';
 import { EventOptions } from './entities/event-option.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
