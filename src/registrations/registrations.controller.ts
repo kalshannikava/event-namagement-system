@@ -9,7 +9,7 @@ import {
 import { RegistrationsService } from './registrations.service';
 import { CreateRegistrationDto } from './dto/create-registration.dto';
 import { UpdateRegistrationDto } from './dto/update-registration.dto';
-import { BaseController } from 'src/base/base.controller';
+import { BaseController } from '../base/base.controller';
 import { Registration } from './entities/registration.entity';
 
 @Controller('registrations')
