@@ -5,4 +5,7 @@ import { BaseEntity } from '../../base/entities/base.entity';
 export class User extends BaseEntity {
   @Column('text', { unique: true })
   login: string;
+
+  @Column('text')
+  password: string;
 }
