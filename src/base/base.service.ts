@@ -35,6 +35,14 @@ export abstract class BaseService<T extends ObjectLiteral> {
     return result;
   }
 
+  async findOneBy(option: any): Promise<T | null> {
+    const result = await this.repository.findOneBy({ option });
+    if (!result) {
+      throw new HttpException('Item not found', HttpStatus.NOT_FOUND);
+    }
+    return result;
+  }
+
   async update(
     id: number,
     updateBaseDto: QueryDeepPartialEntity<T>,
