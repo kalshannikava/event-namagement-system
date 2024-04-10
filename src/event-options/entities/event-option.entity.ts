@@ -1,6 +1,6 @@
 import { Entity, ManyToOne, JoinColumn } from 'typeorm';
 import { BaseEntity } from '../../base/entities/base.entity';
-import { Tag } from '../../tags/tag.entity';
+import { Tag } from '../../tags/entities/tag.entity';
 import { Event } from '../../events/entities/event.entity';
 
 @Entity('event_options')
