@@ -11,6 +11,7 @@ import { RegistrationsModule } from './registrations/registrations.module';
 import { EventOptionModule } from './event-options/event-option.module';
 import { FeedbacksModule } from './feedbacks/feedbacks.module';
 import { TagsModule } from './tags/tags.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { TagsModule } from './tags/tags.module';
     RegistrationsModule,
     FeedbacksModule,
     TagsModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
