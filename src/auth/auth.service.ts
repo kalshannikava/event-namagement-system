@@ -25,11 +25,11 @@ export class AuthService {
   }
 
   async validateCredentials(login: string, password: string): Promise<User> {
-    const user = await this.usersService.findOneBy(login);
+    const user = await this.usersService.findOneBy({ login });
     if (!user) {
       throw new BadRequestException('Invalid credentials');
     }
-    const passwordMatches = this.comparePasswords(user.password, password);
+    const passwordMatches = this.comparePasswords(password, user.password);
     if (!passwordMatches) {
       throw new BadRequestException('Invalid credentials');
     }
@@ -38,7 +38,7 @@ export class AuthService {
 
   async signUp(createUserDto: CreateUserDto): Promise<any> {
     const login = createUserDto.login;
-    const userExists = await this.usersService.findOneBy(login);
+    const userExists = await this.usersService.findOneBy({ login });
     if (userExists) {
       throw new BadRequestException('User already exists');
     }
@@ -48,8 +48,7 @@ export class AuthService {
       ...createUserDto,
       password: hash,
     });
-    const tokens = await this.getTokens(newUser.id, newUser.login);
-    return tokens;
+    return await this.getTokens(newUser.id, newUser.login);
   }
 
   async signIn({ login, password }: AuthDto) {
