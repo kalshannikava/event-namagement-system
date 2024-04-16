@@ -56,10 +56,6 @@ export class AuthService {
     return await this.getTokens(user.id, user.login);
   }
 
-  async updateRefreshToken() {
-    // TODO: implement
-  }
-
   async getTokens(
     userId: number,
     username: string,
