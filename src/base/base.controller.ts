@@ -9,8 +9,10 @@ import {
 } from '@nestjs/common';
 import { DeepPartial } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+
 import { BaseService } from './base.service';
 import { BaseEntity } from './entities/base.entity';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 export abstract class BaseController<T extends BaseEntity> {
   constructor(private readonly baseService: BaseService<T>) {}
@@ -20,11 +22,13 @@ export abstract class BaseController<T extends BaseEntity> {
     return this.baseService.create(createBaseDto);
   }
 
+  @Public()
   @Get()
   findAll() {
     return this.baseService.findAll();
   }
 
+  @Public()
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: string) {
     return this.baseService.findOne(+id);

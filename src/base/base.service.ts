@@ -35,6 +35,10 @@ export abstract class BaseService<T extends ObjectLiteral> {
     return result;
   }
 
+  async findOneBy(option: FindOptionsWhere<T>): Promise<T | null> {
+    return await this.repository.findOneBy(option);
+  }
+
   async update(
     id: number,
     updateBaseDto: QueryDeepPartialEntity<T>,
