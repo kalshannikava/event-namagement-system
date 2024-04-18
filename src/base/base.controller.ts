@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { DeepPartial } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
@@ -13,6 +14,7 @@ import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity
 import { BaseService } from './base.service';
 import { BaseEntity } from './entities/base.entity';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { GetAllDto } from './dto/getAll.dto';
 
 export abstract class BaseController<T extends BaseEntity> {
   constructor(private readonly baseService: BaseService<T>) {}
@@ -24,8 +26,8 @@ export abstract class BaseController<T extends BaseEntity> {
 
   @Public()
   @Get()
-  findAll() {
-    return this.baseService.findAll();
+  findAll(@Query() query: GetAllDto) {
+    return this.baseService.findAll(query);
   }
 
   @Public()
