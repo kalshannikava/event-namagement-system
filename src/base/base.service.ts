@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import {
   DeepPartial,
+  FindOptionsOrder,
   FindOptionsWhere,
   ObjectLiteral,
   Repository,
@@ -23,6 +24,7 @@ export abstract class BaseService<T extends ObjectLiteral> {
       take,
       skip,
       loadRelationIds: true,
+      order: { id: 'ASC' } as unknown as FindOptionsOrder<T>,
     });
 
     return {
