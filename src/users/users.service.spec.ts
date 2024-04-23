@@ -20,6 +20,7 @@ describe('UsersService', () => {
             find: jest.fn(),
             findOne: jest.fn(),
             findOneBy: jest.fn(),
+            findAndCount: jest.fn(),
             save: jest.fn(),
             update: jest.fn(),
             delete: jest.fn(),
@@ -44,6 +45,7 @@ describe('UsersService', () => {
     it('should create new user', async () => {
       const createUserDto: CreateUserDto = {
         login: 'test',
+        password: 'test',
       };
 
       const user: User = {
@@ -67,11 +69,12 @@ describe('UsersService', () => {
         login: 'test',
       };
       const users = [user] as User[];
-      jest.spyOn(repository, 'find').mockResolvedValue(users);
+      const mock = [users, 1] as [User[], number];
+      jest.spyOn(repository, 'findAndCount').mockResolvedValue(mock);
 
-      const result = await service.findAll();
-      expect(result).toEqual(users);
-      expect(repository.find).toHaveBeenCalled();
+      const result = await service.findAll({});
+      expect(result).toEqual({ result: users, total: 1 });
+      expect(repository.findAndCount).toHaveBeenCalled();
     });
   });
 

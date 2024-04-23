@@ -45,10 +45,11 @@ describe('TagsController', () => {
         name: 'tag',
       };
       const tags = [tag] as Tag[];
-      jest.spyOn(service, 'findAll').mockResolvedValue(tags);
+      const mock = { result: tags, total: 1 };
+      jest.spyOn(service, 'findAll').mockResolvedValue(mock);
 
-      const result = await controller.findAll();
-      expect(result).toEqual(tags);
+      const result = await controller.findAll({});
+      expect(result).toEqual(mock);
       expect(service.findAll).toHaveBeenCalled();
     });
   });

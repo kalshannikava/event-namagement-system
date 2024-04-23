@@ -20,6 +20,7 @@ describe('RegistrationsService', () => {
             find: jest.fn(),
             findOne: jest.fn(),
             findOneBy: jest.fn(),
+            findAndCount: jest.fn(),
             save: jest.fn(),
             update: jest.fn(),
             delete: jest.fn(),
@@ -71,11 +72,12 @@ describe('RegistrationsService', () => {
         eventId: 1,
       };
       const registrations = [registration] as Registration[];
-      jest.spyOn(repository, 'find').mockResolvedValue(registrations);
+      const mock = [registrations, 1] as [Registration[], number];
+      jest.spyOn(repository, 'findAndCount').mockResolvedValue(mock);
 
-      const result = await service.findAll();
-      expect(result).toEqual(registrations);
-      expect(repository.find).toHaveBeenCalled();
+      const result = await service.findAll({});
+      expect(result).toEqual({ result: registrations, total: 1 });
+      expect(repository.findAndCount).toHaveBeenCalled();
     });
   });
 
