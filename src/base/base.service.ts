@@ -1,12 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import {
   DeepPartial,
+  FindOptionsOrder,
   FindOptionsWhere,
   ObjectLiteral,
   Repository,
 } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
-
+import { GetAllDto } from './dto/getAll.dto';
 @Injectable()
 export abstract class BaseService<T extends ObjectLiteral> {
   constructor(protected repository: Repository<T>) {}
@@ -15,10 +16,21 @@ export abstract class BaseService<T extends ObjectLiteral> {
     return await this.repository.save(createBaseDto);
   }
 
-  findAll(): Promise<T[]> {
-    return this.repository.find({
+  async findAll(query: GetAllDto): Promise<{ result: T[]; total: number }> {
+    const take = query?.take || 10;
+    const skip = query?.skip || 0;
+
+    const [result, total] = await this.repository.findAndCount({
+      take,
+      skip,
       loadRelationIds: true,
+      order: { id: 'ASC' } as unknown as FindOptionsOrder<T>,
     });
+
+    return {
+      result,
+      total,
+    };
   }
 
   async findOne(id: number): Promise<T | null> {
