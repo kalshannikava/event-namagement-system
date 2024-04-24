@@ -46,10 +46,11 @@ describe('RegistrationsController', () => {
         eventId: 1,
       };
       const registrations = [registration] as Registration[];
-      jest.spyOn(service, 'findAll').mockResolvedValue(registrations);
+      const mock = { result: registrations, total: 1 };
+      jest.spyOn(service, 'findAll').mockResolvedValue(mock);
 
-      const result = await controller.findAll();
-      expect(result).toEqual(registrations);
+      const result = await controller.findAll({});
+      expect(result).toEqual(mock);
       expect(service.findAll).toHaveBeenCalled();
     });
   });

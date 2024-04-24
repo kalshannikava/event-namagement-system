@@ -20,6 +20,7 @@ describe('EventOptionsService', () => {
             find: jest.fn(),
             findOne: jest.fn(),
             findOneBy: jest.fn(),
+            findAndCount: jest.fn(),
             save: jest.fn(),
             update: jest.fn(),
             delete: jest.fn(),
@@ -64,16 +65,17 @@ describe('EventOptionsService', () => {
 
   describe('findAll', () => {
     it('should return an array of eventOptionss', async () => {
-      const eventOptions = {
+      const eventOption = {
         tagId: 1,
         eventId: 1,
       };
-      const eventOptionss = [eventOptions] as EventOptions[];
-      jest.spyOn(repository, 'find').mockResolvedValue(eventOptionss);
+      const eventOptions = [eventOption] as EventOptions[];
+      const mock = [eventOptions, 1] as [EventOptions[], number];
+      jest.spyOn(repository, 'findAndCount').mockResolvedValue(mock);
 
-      const result = await service.findAll();
-      expect(result).toEqual(eventOptionss);
-      expect(repository.find).toHaveBeenCalled();
+      const result = await service.findAll({});
+      expect(result).toEqual({ result: eventOptions, total: 1 });
+      expect(repository.findAndCount).toHaveBeenCalled();
     });
   });
 

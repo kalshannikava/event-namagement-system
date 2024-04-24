@@ -46,10 +46,11 @@ describe('EventOptionsController', () => {
         eventId: 1,
       };
       const events = [eventOptions] as EventOptions[];
-      jest.spyOn(service, 'findAll').mockResolvedValue(events);
+      const mock = { result: events, total: 1 };
+      jest.spyOn(service, 'findAll').mockResolvedValue(mock);
 
-      const result = await controller.findAll();
-      expect(result).toEqual(events);
+      const result = await controller.findAll({});
+      expect(result).toEqual(mock);
       expect(service.findAll).toHaveBeenCalled();
     });
   });
