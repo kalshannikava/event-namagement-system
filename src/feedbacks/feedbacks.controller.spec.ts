@@ -47,10 +47,11 @@ describe('FeedbacksController', () => {
         content: 'content',
       };
       const feedbacks = [feedback] as Feedback[];
-      jest.spyOn(service, 'findAll').mockResolvedValue(feedbacks);
+      const mock = { result: feedbacks, total: 1 };
+      jest.spyOn(service, 'findAll').mockResolvedValue(mock);
 
-      const result = await controller.findAll();
-      expect(result).toEqual(feedbacks);
+      const result = await controller.findAll({});
+      expect(result).toEqual(mock);
       expect(service.findAll).toHaveBeenCalled();
     });
   });

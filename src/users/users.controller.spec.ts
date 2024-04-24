@@ -45,10 +45,11 @@ describe('UsersController', () => {
         login: 'test',
       };
       const users = [user] as User[];
-      jest.spyOn(service, 'findAll').mockResolvedValue(users);
+      const mock = { result: users, total: 1 };
+      jest.spyOn(service, 'findAll').mockResolvedValue(mock);
 
-      const result = await controller.findAll();
-      expect(result).toEqual(users);
+      const result = await controller.findAll({});
+      expect(result).toEqual(mock);
       expect(service.findAll).toHaveBeenCalled();
     });
   });
@@ -73,6 +74,7 @@ describe('UsersController', () => {
     it('should create a new user', async () => {
       const createUserDto: CreateUserDto = {
         login: 'test',
+        password: 'test',
       };
 
       const user: User = {

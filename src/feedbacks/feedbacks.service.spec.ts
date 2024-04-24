@@ -20,6 +20,7 @@ describe('FeedbacksService', () => {
             find: jest.fn(),
             findOne: jest.fn(),
             findOneBy: jest.fn(),
+            findAndCount: jest.fn(),
             save: jest.fn(),
             update: jest.fn(),
             delete: jest.fn(),
@@ -71,11 +72,12 @@ describe('FeedbacksService', () => {
         content: 'content',
       };
       const feedbacks = [feedback] as Feedback[];
-      jest.spyOn(repository, 'find').mockResolvedValue(feedbacks);
+      const mock = [feedbacks, 1] as [Feedback[], number];
+      jest.spyOn(repository, 'findAndCount').mockResolvedValue(mock);
 
-      const result = await service.findAll();
-      expect(result).toEqual(feedbacks);
-      expect(repository.find).toHaveBeenCalled();
+      const result = await service.findAll({});
+      expect(result).toEqual({ result: feedbacks, total: 1 });
+      expect(repository.findAndCount).toHaveBeenCalled();
     });
   });
 

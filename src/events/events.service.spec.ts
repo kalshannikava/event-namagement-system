@@ -20,6 +20,7 @@ describe('EventsService', () => {
             find: jest.fn(),
             findOne: jest.fn(),
             findOneBy: jest.fn(),
+            findAndCount: jest.fn(),
             save: jest.fn(),
             update: jest.fn(),
             delete: jest.fn(),
@@ -71,11 +72,12 @@ describe('EventsService', () => {
         ownerId: 1,
       };
       const events = [event] as Event[];
-      jest.spyOn(repository, 'find').mockResolvedValue(events);
+      const mock = [events, 1] as [Event[], number];
+      jest.spyOn(repository, 'findAndCount').mockResolvedValue(mock);
 
-      const result = await service.findAll();
-      expect(result).toEqual(events);
-      expect(repository.find).toHaveBeenCalled();
+      const result = await service.findAll({});
+      expect(result).toEqual({ result: events, total: 1 });
+      expect(repository.findAndCount).toHaveBeenCalled();
     });
   });
 

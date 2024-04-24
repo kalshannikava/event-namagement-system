@@ -20,6 +20,7 @@ describe('TagsService', () => {
             find: jest.fn(),
             findOne: jest.fn(),
             findOneBy: jest.fn(),
+            findAndCount: jest.fn(),
             save: jest.fn(),
             update: jest.fn(),
             delete: jest.fn(),
@@ -67,11 +68,12 @@ describe('TagsService', () => {
         name: 'tag',
       };
       const tags = [tag] as Tag[];
-      jest.spyOn(repository, 'find').mockResolvedValue(tags);
+      const mock = [tags, 1] as [Tag[], number];
+      jest.spyOn(repository, 'findAndCount').mockResolvedValue(mock);
 
-      const result = await service.findAll();
-      expect(result).toEqual(tags);
-      expect(repository.find).toHaveBeenCalled();
+      const result = await service.findAll({});
+      expect(result).toEqual({ result: tags, total: 1 });
+      expect(repository.findAndCount).toHaveBeenCalled();
     });
   });
 
